@@ -33,11 +33,3 @@ jobs:
 
     - name: Run unit tests
       run: mvn -B test --file pom.xml
-
-    - name: Publish test results
-      if: always()
-      uses: dorny/test-reporter@v1
-      with:
-        name: JUnit Tests
-        path: target/surefire-reports/*.xml
-        reporter: java-junit
