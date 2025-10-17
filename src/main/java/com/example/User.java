@@ -50,14 +50,14 @@ public class User {
         this.likedMovies = likedMovies;
     }
 
-    public static boolean isNameValid(String name) {
+    private boolean isNameValid(String name) {
         if (name == null || name.trim().isEmpty() || name.startsWith(" ")) {
             return false;
         }
         return name.matches("[a-zA-Z ]+");
     }
 
-    public static boolean isIdValid(String id) {
+    private boolean isIdValid(String id) {
         if (id == null) {
             return false;
         }
