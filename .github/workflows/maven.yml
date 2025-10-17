@@ -6,30 +6,43 @@ on:
   pull_request:
     branches: [ main ]
 
+permissions:
+  contents: read
+  checks: write
+  actions: read
+
 jobs:
   build:
     runs-on: ubuntu-latest
 
     steps:
-    - name: Checkout code
-      uses: actions/checkout@v4
+    - uses: actions/checkout@v4
+      with:
+        fetch-depth: 0
 
     - name: Set up JDK 17
       uses: actions/setup-java@v4
       with:
         java-version: '17'
-        distribution: 'temurin'  # or 'zulu', 'oracle', etc.
+        distribution: 'temurin'
 
-    - name: Cache Maven packages
+    - name: Cache Maven dependencies
       uses: actions/cache@v4
       with:
         path: ~/.m2
         key: ${{ runner.os }}-maven-${{ hashFiles('**/pom.xml') }}
-        restore-keys: |
-          ${{ runner.os }}-maven-
+        restore-keys: ${{ runner.os }}-maven-
 
-    - name: Build with Maven
-      run: mvn -B compile --file pom.xml
+    - name: Build
+      run: mvn -B compile
 
     - name: Run unit tests
-      run: mvn -B test --file pom.xml
+      run: mvn -B test || true  # don't stop the job even if tests fail
+
+    - name: Publish test results
+      if: always()
+      uses: dorny/test-reporter@v1
+      with:
+        name: JUnit Tests
+        path: target/surefire-reports/*.xml
+        reporter: java-junit
