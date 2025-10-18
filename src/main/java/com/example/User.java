@@ -37,4 +37,7 @@ public class User {
     public void setLikedMovies(List<Movie> likedMovies) {
         this.likedMovies = likedMovies;
     }
+    public void addLikedMovie(Movie movie) {
+        this.likedMovies.add(movie);
+    }
 }

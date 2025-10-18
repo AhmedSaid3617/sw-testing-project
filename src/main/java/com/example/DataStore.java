@@ -57,4 +57,12 @@ public class DataStore {
 
         return true; // Integrity check passed
     }
+    public Movie getMovieById(String id) {
+        for (Movie movie : movies) {
+            if (movie.getId().equals(id)) {
+                return movie; // Return the movie if found
+            }
+        }
+        return null; // Return null if no movie with the given ID is found
+    }
 }
