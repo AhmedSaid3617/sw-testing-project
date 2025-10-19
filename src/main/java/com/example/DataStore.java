@@ -47,6 +47,14 @@ public class DataStore {
         this.movies.add(movie);
     }
 
+    public List<User> getUsers() {
+        return users;
+    }
+
+    public List<Movie> getMovies() {
+        return movies;
+    }
+
     private boolean checkIntegrity(User user) {
 
         for (Movie likedMovie : user.getLikedMovies()) {
