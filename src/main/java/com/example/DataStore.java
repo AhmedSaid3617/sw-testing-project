@@ -47,6 +47,14 @@ public class DataStore {
         this.movies.add(movie);
     }
 
+    public List<User> getUsers() {
+        return users;
+    }
+
+    public List<Movie> getMovies() {
+        return movies;
+    }
+
     private boolean checkIntegrity(User user) {
 
         for (Movie likedMovie : user.getLikedMovies()) {
@@ -56,5 +64,13 @@ public class DataStore {
         }
 
         return true; // Integrity check passed
+    }
+    public Movie getMovieById(String id) {
+        for (Movie movie : movies) {
+            if (movie.getId().equals(id)) {
+                return movie; // Return the movie if found
+            }
+        }
+        return null; // Return null if no movie with the given ID is found
     }
 }

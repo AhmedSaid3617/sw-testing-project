@@ -37,4 +37,5 @@ public class Movie {
     public void setGenres(List<String> genres) {
         this.genres = genres;
     }
+    
 }
