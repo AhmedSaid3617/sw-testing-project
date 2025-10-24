@@ -6,6 +6,7 @@ public class Parser {
     private String usersFileData;
     private String moviesFileData;
     private DataStore dataStore;
+    Movie Movies[];
 
     public Parser(String usersFilePath, String moviesFilePath) throws java.io.IOException {
         this.usersFileData = new String(java.nio.file.Files.readAllBytes(java.nio.file.Paths.get(usersFilePath)));
