@@ -12,8 +12,6 @@ public class Parser {
         this.usersFileData = new String(java.nio.file.Files.readAllBytes(java.nio.file.Paths.get(usersFilePath)));
         this.moviesFileData = new String(java.nio.file.Files.readAllBytes(java.nio.file.Paths.get(moviesFilePath)));
         this.dataStore = new DataStore();
-        //parseUsers();
-        //parseMovies();
     }
 
     public void parse() throws Exception {
@@ -22,7 +20,4 @@ public class Parser {
         // parse movies
     }
 
-    public void parseMovies() {
-        // Method to parse movies
-    }
 }
