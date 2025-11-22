@@ -5,13 +5,13 @@ import java.util.List;
 
 public class MovieParser {
 
-    private DataStore dataStore;
+    private List<Movie> movies_list;
 
-    public MovieParser(DataStore dataStore) {
-        this.dataStore = dataStore;
+    public MovieParser() {
+        
     }
 
-    public void parseMovies(String moviesFileData) throws Exception {
+    public List<Movie> parseMovies(String moviesFileData) throws Exception {
         String[] lines = moviesFileData.split("\n");
         int i = 0;
         
@@ -41,8 +41,10 @@ public class MovieParser {
             }
             
             Movie movie = new Movie(title, id, genres);
-            dataStore.addMovie(movie);
+            movies_list.add(movie);
             i++;
         }
+
+        return movies_list;
     }
 }

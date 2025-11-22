@@ -6,9 +6,9 @@ public class User {
 
     private String name;
     private String id;
-    private List<Movie> likedMovies; // List of movie IDs
+    private List<String> likedMoviesIDs; // List of movie IDs
 
-    public User(String name, String id, List<Movie> likedMovies) {
+    public User(String name, String id, List<String> likedMoviesIDs) {
         // Validate user name: must be alphabetic characters and spaces, cannot start with space
         if (!name.matches("[A-Za-z][A-Za-z\\s]*")) {
             throw new IllegalArgumentException("Error in user name\nERROR: User Name " + name + " is wrong");
@@ -26,7 +26,7 @@ public class User {
         
         this.name = name;
         this.id = id;
-        this.likedMovies = likedMovies;
+        this.likedMoviesIDs = likedMoviesIDs;
     }
 
     public String getName() {
@@ -37,11 +37,11 @@ public class User {
         return id;
     }
 
-    public List<Movie> getLikedMovies() {
-        return likedMovies;
+    public List<String> getLikedMovies() {
+        return this.likedMoviesIDs;
     }
 
-    public void addLikedMovie(Movie movie) {
-        this.likedMovies.add(movie);
+    public void addLikedMovie(String movie_id) {
+        this.likedMoviesIDs.add(movie_id);
     }
 }

@@ -2,7 +2,7 @@ package com.example;
 
 public class Main {
     public static void main(String[] args) {
-        System.out.println("Hello world!");
+        /* System.out.println("Hello world!");
         DataStore ds = new DataStore();
         MovieParser mp = new MovieParser(ds);
         try {
@@ -10,6 +10,6 @@ public class Main {
             System.err.println(ds.getMovies().get(0).getTitle());
         } catch (Exception e) {
             // TODO: handle exception
-        }
+        } */
     }
 }

@@ -17,9 +17,9 @@ public class DataStore {
      * Constructs a new DataStore object.
      * This initializes the user and movie lists as empty ArrayLists.
      */
-    public DataStore() {
-        this.users = new ArrayList<>();
-        this.movies = new ArrayList<>();
+    public DataStore(ParseResult data) {
+        users = data.getUsers();
+        movies = data.getMovies();
     }
 
     /**
@@ -30,7 +30,7 @@ public class DataStore {
      * @throws IllegalArgumentException if the user's data fails the integrity check,
      *                                  preventing the addition of a user with invalid or inconsistent data.
      */
-    public void addUser(User user) {
+    public void addUser(User user) throws Exception {
         if (checkIntegrity(user)) {
             this.users.add(user);
         } else {
@@ -55,11 +55,18 @@ public class DataStore {
         return movies;
     }
 
-    private boolean checkIntegrity(User user) {
+    private boolean checkIntegrity(User user) throws Exception {
 
-        for (Movie likedMovie : user.getLikedMovies()) {
-            if (!movies.contains(likedMovie)) {
-                return false; // Integrity check failed
+        for (String id : user.getLikedMovies()) {
+            boolean found = false;
+            for (Movie movie : movies) {
+                if (movie.getId() == id) {
+                    found = true;
+                    break;
+                }
+            }
+            if (!found) {
+                throw new DataIntegrityException("This movie id doesn't exist");
             }
         }
 
