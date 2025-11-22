@@ -42,7 +42,7 @@ public class Recommender {
         // Recommend movies based on liked genres and exclude already liked movies
         List<Movie> recommendations = new ArrayList<>();
         for (Movie movie : data.getMovies()) {
-            if (!likedMovies.contains(movie)) continue;
+            if (likedMovies.contains(movie)) continue;
             for (String genre : movie.getGenres()) {
                 if (likedGenres.contains(genre)) {
                     recommendations.add(movie);
