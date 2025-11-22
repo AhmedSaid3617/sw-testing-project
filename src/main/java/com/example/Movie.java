@@ -7,10 +7,10 @@ public class Movie {
     private String id;
     private List<String> genres;
 
-    public Movie(String title, String id, List<String> genres) {
+    public Movie(String title, String id, List<String> genres) throws MovieException {
         // Validate title format
         if (!title.matches("([A-Z][a-z]*\\s*)+")) {
-            throw new IllegalArgumentException("Error in movie title\nERROR: Movie Title " + title + " is wrong");
+            throw new MovieException("Error in movie title\nERROR: Movie Title " + title + " is wrong");
         }
         
         // Extract capital letters from title
@@ -22,12 +22,12 @@ public class Movie {
         
         // Validate id letters match title capital letters
         if (!idLetters.equals(expectedLetters)) {
-            throw new IllegalArgumentException("Error in movie id letters\nERROR: Movie Id letters " + id + " are wrong");
+            throw new MovieException("Error in movie id letters\nERROR: Movie Id letters " + id + " are wrong");
         }
         
         // Validate id numbers format
         if (!idNumbers.matches("[0-9]{3}")) { //"(?!.*(.).*\\1)[0-9]{3}"
-            throw new IllegalArgumentException("Error in movie id unique numbers\nERROR: Movie Id numbers " + id + " aren't unique");
+            throw new MovieException("Error in movie id unique numbers\nERROR: Movie Id numbers " + id + " aren't unique");
         }
         
         this.title = title;
