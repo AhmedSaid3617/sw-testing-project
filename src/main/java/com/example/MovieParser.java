@@ -8,6 +8,7 @@ public class MovieParser {
     private List<Movie> movies_list;
 
     public MovieParser() {
+        movies_list=new ArrayList<>();
         
     }
 

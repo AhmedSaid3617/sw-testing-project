@@ -102,7 +102,7 @@ public class MovieTest{
     public void testMovieIdUniqueNumbers() {
         List<String> genres = Arrays.asList("Horror");
         assertDoesNotThrow(() -> new Movie("Scream", "S123", genres));
-        Exception exception1 = assertThrows(MovieException.class, () -> {
+        Exception exception1 = assertThrows(MovieException.class, () -> {// Error need to be fixed
             new Movie("Scream", "S112", genres);
         });
         assertTrue(exception1.getMessage().contains("Error in movie id unique numbers"));

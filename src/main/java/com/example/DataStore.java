@@ -16,10 +16,14 @@ public class DataStore {
     /**
      * Constructs a new DataStore object.
      * This initializes the user and movie lists as empty ArrayLists.
+     * @throws Exception 
      */
-    public DataStore(ParseResult data) {
+    public DataStore(ParseResult data) throws Exception {
         users = data.getUsers();
         movies = data.getMovies();
+        for (User user : users) {
+            checkIntegrity(user);
+        }
     }
 
     /**
@@ -67,6 +71,11 @@ public class DataStore {
             }
             if (!found) {
                 throw new DataIntegrityException("This movie id doesn't exist");
+            }
+        }
+        for (User existingUser : users) {
+            if (existingUser.getId().equals(user.getId())) {
+                throw new DataIntegrityException("Duplicate user ID found: " + user.getId());
             }
         }
 

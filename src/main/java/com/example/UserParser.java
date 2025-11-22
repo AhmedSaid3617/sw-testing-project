@@ -8,7 +8,7 @@ public class UserParser {
     private List<User> users_list;
 
     public UserParser() {
-        
+        users_list=new ArrayList<>();
     }
 
     private void addLikedMovies(String l, User user) throws Exception {
