@@ -2,7 +2,6 @@ package com.example;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import java.util.ArrayList;
@@ -73,7 +72,6 @@ public class RecommenderTest {
     }
 
     @Test
-
     void noRecommendationsForUniqueTaste() {
         Movie movie1 = new Movie("Horror Movie", "1", List.of("Horror"));
         Movie movie2 = new Movie("Documentary", "2", List.of("Documentary"));
