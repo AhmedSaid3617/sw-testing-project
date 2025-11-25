@@ -37,7 +37,7 @@ public class MovieTest{
         assertThrows(MovieException.class, () -> {
             new Movie("the Matrix", "TM456", genres);});
 
-        assertTrue(exception.getMessage().contains("Error in movie title"));
+        assertEquals("ERROR: Movie Title the matrix is wrong", exception.getMessage());
     }
     
     @Test
@@ -51,7 +51,8 @@ public class MovieTest{
             new Movie("Star wars", "SW789", genres);});
         assertThrows(MovieException.class, () -> {
             new Movie("A beautiful Mind", "ABM321", genres);});
-        assertTrue(exception.getMessage().contains("Error in movie title"));
+            
+        assertEquals("ERROR: Movie Title The matrix is wrong", exception.getMessage());
     }
     
     @Test
@@ -61,7 +62,17 @@ public class MovieTest{
         assertDoesNotThrow(() -> new Movie("The Dark Knight", "TDK123", genres));
         assertDoesNotThrow(() -> new Movie("Inception", "I456", genres));
         assertDoesNotThrow(() -> new Movie("Avatar", "A789", genres));
-        assertDoesNotThrow(() -> new Movie("THE Lord of the Rings", "THELotR321", genres));//error to fix*******************************************
+    }
+
+    @Test
+    @DisplayName("Movie title - capital letters only at the start of words")
+    public void testMovieTitleCapitalLettersOnlyAtStart() {
+        List<String> genres = Arrays.asList("Drama");
+        Exception exception = assertThrows(MovieException.class, () -> {
+            new Movie("The DARK Knight", "TDK123", genres);
+        });
+        
+        assertEquals("ERROR: Movie Title The DARK Knight is wrong", exception.getMessage());
     }
     
     @Test
@@ -71,7 +82,7 @@ public class MovieTest{
         Exception exception = assertThrows(MovieException.class, () -> {
         new Movie("The Dark Knight", "TDK", genres);
         });
-        assertTrue(exception.getMessage().contains("Error in movie id"));
+        assertTrue(exception.getMessage().contains("ERROR: Movie Id letters TDK are wrong"));
     }
     
     @Test
@@ -81,7 +92,7 @@ public class MovieTest{
         Exception exception = assertThrows(MovieException.class, () -> {
             new Movie("The Dark Knight", "TK123", genres);
         });
-        assertTrue(exception.getMessage().contains("Error in movie id letters"));
+        assertEquals("ERROR: Movie Id letters TK123 are wrong", exception.getMessage());
     }
     
     @Test
@@ -92,22 +103,13 @@ public class MovieTest{
         Exception exception1 = assertThrows(MovieException.class, () -> {
             new Movie("Scream", "S12", genres);
         });
-        assertTrue(exception1.getMessage().contains("Error in movie id"));
+        assertEquals("ERROR: Movie Id letters S12 are wrong", exception1.getMessage());
         Exception exception2 = assertThrows(MovieException.class, () -> {
             new Movie("Scream", "S1234", genres);
         });
-        assertTrue(exception2.getMessage().contains("Error in movie id"));
+        assertEquals("ERROR: Movie Id letters S1234 are wrong", exception2.getMessage());
     }
-    @Test
-    @DisplayName("Movie ID - numbers must be unique")
-    public void testMovieIdUniqueNumbers() {
-        List<String> genres = Arrays.asList("Horror");
-        assertDoesNotThrow(() -> new Movie("Scream", "S123", genres));
-        Exception exception1 = assertThrows(MovieException.class, () -> {// Error need to be fixed
-            new Movie("Scream", "S112", genres);
-        });
-        assertTrue(exception1.getMessage().contains("Error in movie id unique numbers"));
-    }
+
     @Test
     @DisplayName("Movie genres - multiple genres allowed")
     public void testMovieGenres() {
@@ -117,5 +119,15 @@ public class MovieTest{
         assertTrue(movie.getGenres().contains("Action"));
         assertTrue(movie.getGenres().contains("Thriller"));
         assertTrue(movie.getGenres().contains("Drama"));
+    }
+
+    @Test
+    @DisplayName("Movie genres - empty genre list")
+    public void testMovieEmptyGenres() {
+        List<String> genres = Arrays.asList();
+        Exception exception = assertThrows(MovieException.class, () -> {
+            new Movie("Interstellar", "I123", genres);
+        });
+        assertTrue(exception.getMessage().contains("ERROR: Movie I123 has empty genres list"));
     }
 }

@@ -8,9 +8,15 @@ public class Movie {
     private List<String> genres;
 
     public Movie(String title, String id, List<String> genres) throws MovieException {
-        // Validate title format
-        if (!title.matches("([A-Z][a-z]*\\s*)+")) {
-            throw new MovieException("Error in movie title\nERROR: Movie Title " + title + " is wrong");
+
+        // Validate genres list is not empty
+        if (genres == null || genres.isEmpty()) {
+            throw new MovieException("ERROR: Movie "+ id + " has empty genres list");
+        }
+
+        // Validate title format: each word starts with one uppercase followed by only lowercase letters
+        if (!title.matches("^([A-Z][a-z]*)(\\s[A-Z][a-z]*)*$")) {
+            throw new MovieException("ERROR: Movie Title " + title + " is wrong");
         }
         
         // Extract capital letters from title
@@ -21,13 +27,8 @@ public class Movie {
         String idNumbers = id.replaceAll("[^0-9]", "");
         
         // Validate id letters match title capital letters
-        if (!idLetters.equals(expectedLetters)) {
-            throw new MovieException("Error in movie id letters\nERROR: Movie Id letters " + id + " are wrong");
-        }
-        
-        // Validate id numbers format
-        if (!idNumbers.matches("[0-9]{3}")) { //"(?!.*(.).*\\1)[0-9]{3}"
-            throw new MovieException("Error in movie id unique numbers\nERROR: Movie Id numbers " + id + " aren't unique");
+        if (!idLetters.equals(expectedLetters) || idNumbers.length() != 3) {
+            throw new MovieException("ERROR: Movie Id letters " + id + " are wrong");
         }
         
         this.title = title;
