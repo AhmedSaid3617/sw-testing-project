@@ -16,7 +16,7 @@ public class DataStoreTest {
     private ParseResult parseResult;
 
     @BeforeEach
-    void setUp() throws UserException, MovieException {
+    void setUp() throws Exception {
         movies = new ArrayList<>();
         users = new ArrayList<>();
         
@@ -101,9 +101,9 @@ public class DataStoreTest {
 
     @Test
     @DisplayName("Add movie to data store")
-    void testAddMovie() throws UserException, MovieException {
+    void testAddMovie() throws Exception {
         int initialSize = dataStore.getMovies().size();
-        Movie newMovie = new Movie("Interstellar", "I123", Arrays.asList("Sci-Fi", "Drama"));
+        Movie newMovie = new Movie("Interstellar", "I824", Arrays.asList("Sci-Fi", "Drama"));
         
         dataStore.addMovie(newMovie);
         
@@ -112,7 +112,7 @@ public class DataStoreTest {
 
     @Test
     @DisplayName("Add multiple movies to data store")
-    void testAddMultipleMovies() throws UserException, MovieException {
+    void testAddMultipleMovies() throws Exception {
         Movie movie4 = new Movie("Titanic", "T999", Arrays.asList("Drama", "Romance"));
         Movie movie5 = new Movie("The Dark Knight", "TDK888", Arrays.asList("Action", "Crime"));
         
@@ -230,5 +230,45 @@ public class DataStoreTest {
         assertDoesNotThrow(()->dataStore.addUser(user2));
         assertThrows(DataIntegrityException.class, ()->dataStore.addUser(user1));
     }
-}
 
+    @Test
+    @DisplayName("Adding users with non-unique IDs throws exception")
+    void testAddingUsersWithNonUniqueIds() throws Exception {
+        User user1 = new User("User One", "123456789", 
+                            new ArrayList<>(Arrays.asList("TM123")));
+        User user2 = new User("User Two", "123456789", 
+                            new ArrayList<>(Arrays.asList("I456")));
+        dataStore.addUser(user1);
+        assertThrows(DataIntegrityException.class, () -> {
+            dataStore.addUser(user2);
+        });
+    }
+
+    @Test
+    @DisplayName("Adding movies with duplicate IDs throws exception")
+    void testAddingMoviesWithDuplicateIds() throws Exception {
+        Movie movie1 = new Movie("Duplicate Movie", "DM824", Arrays.asList("Drama"));
+        Movie movie2 = new Movie("Duplicate Movie", "DM824", Arrays.asList("Comedy"));
+        
+        dataStore.addMovie(movie1);
+        Exception exception = assertThrows(DataIntegrityException.class, () -> {
+            dataStore.addMovie(movie2);
+        });
+
+        assertEquals("Movie Id numbers DM824 aren't unique", exception.getMessage());
+    }
+
+    @Test
+    @DisplayName("Movie ID numbers must be unique")
+    void testMovieIDNumbersUnique() throws Exception {
+        Movie movie1 = new Movie("Movie One", "MO824", Arrays.asList("Action"));
+        Movie movie2 = new Movie("Movie Two", "MT824", Arrays.asList("Horror"));
+        
+        dataStore.addMovie(movie1);
+        Exception exception = assertThrows(DataIntegrityException.class, () -> {
+            dataStore.addMovie(movie2);
+        });
+
+        assertEquals("Movie Id numbers MT824 aren't unique", exception.getMessage());
+    }
+}
