@@ -14,8 +14,12 @@ public class Movie {
             throw new MovieException("ERROR: Movie "+ id + " has empty genres list");
         }
 
+        
+        String strippedTitle = title.replaceAll(" [0-9]", "");
+        strippedTitle = strippedTitle.replaceAll("[0-9] ", "");
+        strippedTitle = strippedTitle.replaceAll("[0-9]", "");
         // Validate title format: each word starts with one uppercase followed by only lowercase letters
-        if (!title.matches("^([A-Z][a-z]*)(\\s[A-Z][a-z]*)*$")) {
+        if (!strippedTitle.matches("^([A-Z][a-z]*)(\\s[A-Z][a-z]*)*$")) {
             throw new MovieException("ERROR: Movie Title " + title + " is wrong");
         }
         

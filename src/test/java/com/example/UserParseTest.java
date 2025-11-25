@@ -179,10 +179,10 @@ public class UserParseTest {
 
     @Test
     void testParseMultipleUsersWithNoLikedMovies() {
-        String userData = "Mia Garcia,121212121\n\n"+
-                          "Noah Martinez,131313131\n\n"+
-                          "Noah Martinez,131313131\n\n"+
-                          "Noah Martinez,131313131\n\n";
+        String userData = "Mia Garcia,121212121\n"+
+                          "Noah Martinez,131313131\n"+
+                          "Noah Martinez,131313131\n"+
+                          "Noah Martinez,131313131\n";
         
         Exception exception = assertThrows(UserException.class, () -> {
             userParser.parseUsers(userData);

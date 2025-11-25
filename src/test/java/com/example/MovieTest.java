@@ -130,4 +130,13 @@ public class MovieTest{
         });
         assertTrue(exception.getMessage().contains("ERROR: Movie I123 has empty genres list"));
     }
+
+    @Test
+    @DisplayName("Movie title with numbers - valid case")
+    public void testMovieTitleWithNumbersValid() {
+        List<String> genres = Arrays.asList("Sci-Fi");
+        assertDoesNotThrow(() -> new Movie("Se7en", "S824", genres));
+        assertDoesNotThrow(() -> new Movie("District 9", "D123", genres));
+        assertDoesNotThrow(() -> new Movie("5 District 9 9", "D321", genres));
+    }
 }
