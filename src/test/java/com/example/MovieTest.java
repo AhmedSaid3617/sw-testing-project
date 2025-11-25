@@ -17,6 +17,7 @@ public class MovieTest{
         assertEquals("TDK123", movie.getId());
         assertEquals(genre, movie.getGenres());
         }
+        
     @Test
     @DisplayName("Movie title - each word starts with capital letter")
     public void testMovieTitleWithCapitalLetters(){

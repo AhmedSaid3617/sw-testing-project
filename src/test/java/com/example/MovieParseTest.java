@@ -83,6 +83,16 @@ public class MovieParseTest {
     }
 
     @Test
+    void testParseMovieWithNoGenres() throws Exception {
+        String movieData = "Gladiator,G123\n\n";
+        
+        assertThrows(MovieException.class, () -> {
+            movieParser.parseMovies(movieData);
+        });
+        
+    }
+
+    @Test
     @DisplayName("Parse empty movie data")
     void testParseEmptyMovieData() throws Exception {
         String movieData = "";

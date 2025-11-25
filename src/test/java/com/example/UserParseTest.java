@@ -167,16 +167,29 @@ public class UserParseTest {
         assertTrue(users.get(0).getLikedMovies().contains("M-001"));
     }
 
- /*    @Test
+    @Test
     @DisplayName("Parse empty liked movies list")
     void testParseUserWithEmptyLikedMoviesList() throws Exception {
         String userData = "Leo Wang,777777777\n\n";
         
-        List<User> users = userParser.parseUsers(userData);
+        assertThrows(UserException.class, () -> {
+            userParser.parseUsers(userData);
+        });
+    }
+
+    @Test
+    void testParseMultipleUsersWithNoLikedMovies() {
+        String userData = "Mia Garcia,121212121\n\n"+
+                          "Noah Martinez,131313131\n\n"+
+                          "Noah Martinez,131313131\n\n"+
+                          "Noah Martinez,131313131\n\n";
         
-        assertEquals(1, users.size());
-        assertEquals(1, users.get(0).getLikedMovies().size()); // Empty string creates one entry
-    }*/
+        Exception exception = assertThrows(UserException.class, () -> {
+            userParser.parseUsers(userData);
+        });
+        System.err.println(exception.getMessage());
+    }
+
    @Test
     @DisplayName("Parse multi users")
     void testParseMultiUsers() throws Exception {
