@@ -4,6 +4,7 @@ import java.io.BufferedWriter;
 import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 import java.nio.file.Paths;
+import java.nio.file.StandardOpenOption;
 import java.util.List;
 
 public class RecommendationWriter {
@@ -17,7 +18,9 @@ public class RecommendationWriter {
     public void writeRecommendations(User user, List<Movie> recommendations) {
         try (BufferedWriter writer = Files.newBufferedWriter(
                 Paths.get(outputFilePath),
-                StandardCharsets.UTF_8)) {
+                StandardCharsets.UTF_8,
+                StandardOpenOption.CREATE,
+                StandardOpenOption.APPEND)) {
 
             writer.write(user.getName() + "," + String.valueOf(user.getId()));
             writer.newLine();
