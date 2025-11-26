@@ -24,10 +24,17 @@ public class DataStore {
      * @throws Exception
      */
     public DataStore(ParseResult data) throws Exception {
-        users = data.getUsers();
-        movies = data.getMovies();
-        for (User user : users) {
+        movies = new java.util.ArrayList<>();
+        users = new java.util.ArrayList<>(); // Initialize empty, will add users after validation
+        
+        // Validate and add each movie
+        for (Movie movie : data.getMovies()) {
+            addMovie(movie);
+        }
+        // Validate and add each user
+        for (User user : data.getUsers()) {
             checkIntegrity(user);
+            users.add(user);
         }
     }
 
@@ -79,7 +86,7 @@ public class DataStore {
         for (String id : user.getLikedMovies()) {
             boolean found = false;
             for (Movie movie : movies) {
-                if (movie.getId() == id) {
+                if (movie.getId().equals(id)) {
                     found = true;
                     break;
                 }

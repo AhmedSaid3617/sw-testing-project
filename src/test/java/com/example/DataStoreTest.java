@@ -271,4 +271,22 @@ public class DataStoreTest {
 
         assertEquals("Movie Id numbers MT824 aren't unique", exception.getMessage());
     }
+
+    @Test
+    void testDataStoreWithParseResult() throws Exception {
+        List<User> testUsers = new ArrayList<>();
+        Movie[] testMovies = {
+            new Movie("Test One", "TO123", Arrays.asList("Genre1", "Genre2")),
+            new Movie("Test Two", "TT123", Arrays.asList("Genre3", "Genre4"))
+        };
+        User user1 = new User("Test User", "555555555", 
+                            new ArrayList<>(Arrays.asList("TO123")));
+        testUsers.add(user1);
+        ParseResult testParseResult = new ParseResult(Arrays.asList(testMovies), testUsers);
+        Exception exception = assertThrows(DataIntegrityException.class, () -> {
+            new DataStore(testParseResult);
+        });
+        
+        assertEquals("Movie Id numbers TT123 aren't unique", exception.getMessage());
+    }
 }
