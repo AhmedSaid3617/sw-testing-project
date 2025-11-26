@@ -1,5 +1,8 @@
 package com.example;
 
+import java.util.ArrayList;
+import java.util.List;
+
 /**
  * Provides movie recommendation functionalities.
  */
@@ -23,7 +26,34 @@ public class Recommender {
      *
      * @param user The user for whom to generate recommendations.
      */
-    public void recommendMovies(User user) {
-        // Recommendation logic to be implemented
+    public List<Movie> recommendMovies(User user) {
+        // Get the list of movies the user likes
+        List<String> likedMoviesIDs = user.getLikedMovies();
+        List<Movie> likedMovies = new ArrayList<>();
+        for (String id : likedMoviesIDs) {
+            likedMovies.add(data.getMovieById(id));
+        }
+        // Get List of liked genres
+        List<String> likedGenres = new ArrayList<>();
+        for (Movie movie : likedMovies) {
+            List<String> genres = movie.getGenres();
+            for (String genre : genres) {
+                if (!likedGenres.contains(genre)) {
+                    likedGenres.add(genre);
+                }
+            }
+        }
+        // Recommend movies based on liked genres and exclude already liked movies
+        List<Movie> recommendations = new ArrayList<>();
+        for (Movie movie : data.getMovies()) {
+            if (likedMovies.contains(movie)) continue;
+            for (String genre : movie.getGenres()) {
+                if (likedGenres.contains(genre)) {
+                    recommendations.add(movie);
+                    break;
+                }
+            }
+        }
+        return recommendations;
     }
 }

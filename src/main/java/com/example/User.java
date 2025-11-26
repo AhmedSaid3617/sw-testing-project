@@ -6,35 +6,42 @@ public class User {
 
     private String name;
     private String id;
-    private List<Movie> likedMovies; // List of movie IDs
+    private List<String> likedMoviesIDs; // List of movie IDs
 
-    public User(String name, String id, List<Movie> likedMovies) {
+    public User(String name, String id, List<String> likedMoviesIDs) throws UserException {
+        // Validate user name: must be alphabetic characters and spaces, cannot start with space
+        if (!name.matches("[A-Za-z][A-Za-z\\s]*")) {
+            throw new UserException("Error in user name\nERROR: User Name " + name + " is wrong");
+        }
+        
+        // Validate user ID: must be alphanumeric, exactly 9 characters, 
+        // starts with numbers, might end with only one alphabetic character
+        if (!id.matches("[0-9]+[A-Za-z]?")) {
+            throw new UserException("Error in user id \nERROR: User Id " + id + " is wrong");
+        }
+        
+        if (id.length() != 9) {
+            throw new UserException("Error in user id \nERROR: User Id " + id + " is wrong");
+        }
+        
         this.name = name;
         this.id = id;
-        this.likedMovies = likedMovies;
+        this.likedMoviesIDs = likedMoviesIDs;
     }
 
     public String getName() {
         return name;
     }
 
-    public void setName(String name) {
-        this.name = name;
-    }
-
     public String getId() {
         return id;
     }
 
-    public void setId(String id) {
-        this.id = id;
+    public List<String> getLikedMovies() {
+        return this.likedMoviesIDs;
     }
 
-    public List<Movie> getLikedMovies() {
-        return likedMovies;
-    }
-
-    public void setLikedMovies(List<Movie> likedMovies) {
-        this.likedMovies = likedMovies;
+    public void addLikedMovie(String movie_id) {
+        this.likedMoviesIDs.add(movie_id);
     }
 }
