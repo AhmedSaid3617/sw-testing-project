@@ -12,6 +12,11 @@ public class DataStore {
     private List<User> users;
     private List<Movie> movies;
 
+    public DataStore() {
+        users = new java.util.ArrayList<>();
+        movies = new java.util.ArrayList<>();
+    }
+
     /**
      * Constructs a new DataStore object.
      * This initializes the user and movie lists as empty ArrayLists.
