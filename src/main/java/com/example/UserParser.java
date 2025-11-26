@@ -13,6 +13,12 @@ public class UserParser {
 
     private void addLikedMovies(String l, User user) throws Exception {
         String[] parts = l.split(",");
+        
+        if (parts[0].matches(".*\\d.*") == false) {
+            throw new UserException("Liked movies are invalid for user " + user.getId());
+            
+        }
+
         for (String id : parts) {
             user.addLikedMovie(id);
         }
@@ -22,9 +28,6 @@ public class UserParser {
         // Method to parse users
         String[] lines = usersFileData.split("\n");
         int length = lines.length;
-        if (lines.length % 2 == 1) {
-            throw new UserException("Some user has no liked movies list");
-        }
         for (int i = 0; i < length; i += 2) {
             String[] parts = lines[i].split(",");
             if (parts.length != 2) {
@@ -32,7 +35,12 @@ public class UserParser {
             }
             User user = new User(parts[0], parts[1], new ArrayList<>());
             users_list.add(user);
-            addLikedMovies(lines[i + 1], user);
+            if (i+1 < length) {
+                addLikedMovies(lines[i + 1], user);   
+            }
+            else {
+                throw new UserException("Liked movies are invalid for user " + user.getId());
+            }
         }
         return users_list;
     }

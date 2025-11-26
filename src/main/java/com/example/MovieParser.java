@@ -31,11 +31,17 @@ public class MovieParser {
             
             i++;
             if (i >= lines.length) {
-                break;
+                throw new MovieException("Genres are missing for movie " + id);
             }
             
             line = lines[i];
             String[] genresArray = line.split(",");
+            if (genresArray.length > 1) {
+                if (genresArray[1].matches(".*\\d.*")) {
+                    throw new MovieException("Genres are invalid for movie " + id);
+                    
+                }
+            }
             List<String> genres = new ArrayList<>();
             for (String genre : genresArray) {
                 genres.add(genre.trim());

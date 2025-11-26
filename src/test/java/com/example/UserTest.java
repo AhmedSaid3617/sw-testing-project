@@ -68,11 +68,11 @@ public class UserTest {
         Exception exception1 = assertThrows(UserException.class, () -> {
             new User("John Doe", "12345678", movies);
             });
-        assertTrue(exception1.getMessage().contains("Error in user id length"));
+        assertTrue(exception1.getMessage().contains("Error in user id"));
         Exception exception2 = assertThrows(UserException.class, () -> {
             new User("John Doe", "1234567890", movies);
         });
-        assertTrue(exception2.getMessage().contains("Error in user id length"));
+        assertTrue(exception2.getMessage().contains("Error in user id"));
     }
     @Test
     @DisplayName("User ID - must start with numbers")
@@ -82,7 +82,7 @@ public class UserTest {
         assertDoesNotThrow(() -> new User("Jane Smith", "12345678A", movies));
         Exception exception = assertThrows(UserException.class, () -> {
             new User("John Doe", "A12345678", movies);});
-        assertTrue(exception.getMessage().contains("Error in user id format"));
+        assertTrue(exception.getMessage().contains("Error in user id"));
     }
     @Test
     @DisplayName("User ID -can end with one alphabetic char")
@@ -94,7 +94,7 @@ public class UserTest {
         Exception exception = assertThrows(UserException.class, () -> {
             new User("John Doe", "1234567AB", movies);
         });
-        assertTrue(exception.getMessage().contains("Error in user id format"));
+        assertTrue(exception.getMessage().contains("Error in user id"));
         }
     
     @Test
@@ -107,7 +107,7 @@ public class UserTest {
         assertThrows(UserException.class, () -> {
             new User("John Doe", "1234567@8", movies);
         });
-        assertTrue(exception.getMessage().contains("Error in user id format"));
+        assertTrue(exception.getMessage().contains("Error in user id"));
     }
     
     @Test

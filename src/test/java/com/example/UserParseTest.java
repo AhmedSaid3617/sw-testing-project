@@ -111,7 +111,7 @@ public class UserParseTest {
         Exception exception = assertThrows(Exception.class, () -> {
             userParser.parseUsers(userData);
         });
-        assertTrue(exception.getMessage().contains("Odd number of lines"));
+        assertEquals("Liked movies are invalid for user 333333333", exception.getMessage());
     }
 
     @Test
