@@ -130,4 +130,21 @@ public class UserTest {
         assertEquals("T789", user.getLikedMovies().get(0));
         assertEquals("FG321", user.getLikedMovies().get(1));
     }
+
+    @Test
+    @DisplayName("User name - cannot be empty or only spaces")
+    public void testUserNameEmptyOrSpaces() {
+        List<String> movies = new ArrayList<>();
+
+        Exception ex1 = assertThrows(UserException.class, () -> {
+            new User("", "123456789", movies);
+        });
+        assertTrue(ex1.getMessage().contains("Error in user name"));
+
+        Exception ex2 = assertThrows(UserException.class, () -> {
+            new User("   ", "123456789", movies);
+        });
+        assertTrue(ex2.getMessage().contains("Error in user name"));
+    }
+
 }
