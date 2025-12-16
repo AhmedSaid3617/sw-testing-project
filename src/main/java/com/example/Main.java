@@ -5,27 +5,30 @@ import java.util.List;
 public class Main {
     public static void main(String[] args) {
         System.out.println("Welcome to the Movie Recommender System!");
+        new Main().run(
+           "users.txt",
+          "movies.txt",
+          "recommendations.txt"
+        );
+    }
         
-        String usersFilePath = "users.txt";
-        String moviesFilePath = "movies.txt";
-        String outputFilePath = "recommendations.txt";
-        
+        void run(String usersFilePath ,String moviesFilePath, String outputFilePath){
         try {
             // Clear the output file if it exists
             java.nio.file.Files.deleteIfExists(java.nio.file.Paths.get(outputFilePath));
             
             // Parse input files
             System.out.println("Parsing movies and users data...");
-            Parser parser = new Parser(usersFilePath, moviesFilePath);
+            Parser parser = createParser(usersFilePath, moviesFilePath);
             ParseResult parseResult = parser.parse();
             
             // Create DataStore with parsed data
             System.out.println("Creating data store...");
-            DataStore dataStore = new DataStore(parseResult);
+            DataStore dataStore = createDataStore(parseResult);
             
             // Create Recommender and Writer
-            Recommender recommender = new Recommender(dataStore);
-            RecommendationWriter writer = new RecommendationWriter(outputFilePath);
+            Recommender recommender = createRecommender(dataStore);
+            RecommendationWriter writer = createWriter(outputFilePath);
             
             // Generate and write recommendations for each user
             System.out.println("Generating recommendations...");
@@ -54,4 +57,21 @@ public class Main {
             System.exit(1);
         }
     }
+
+    Parser createParser(String users, String movies)throws java.io.IOException {
+        return new Parser(users, movies);
+    }
+
+    DataStore createDataStore(ParseResult result) throws Exception{
+        return new DataStore(result);
+    }
+
+    Recommender createRecommender(DataStore dataStore) {
+        return new Recommender(dataStore);
+    }
+
+    RecommendationWriter createWriter(String path) {
+        return new RecommendationWriter(path);
+    }
+    
 }
