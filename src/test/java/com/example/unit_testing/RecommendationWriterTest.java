@@ -1,4 +1,4 @@
-package com.example;
+package com.example.unit_testing;
 
 import java.nio.file.Files;
 import java.nio.file.Path;
@@ -7,6 +7,11 @@ import java.util.List;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+
+import com.example.Movie;
+import com.example.RecommendationWriter;
+import com.example.User;
+
 import static org.junit.jupiter.api.Assertions.*;
 
 public class RecommendationWriterTest {

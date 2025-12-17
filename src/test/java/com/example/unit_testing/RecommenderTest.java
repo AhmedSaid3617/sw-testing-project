@@ -1,9 +1,15 @@
-package com.example;
+package com.example.unit_testing;
 
 import static org.junit.jupiter.api.Assertions.*;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+
+import com.example.DataStore;
+import com.example.Movie;
+import com.example.Recommender;
+import com.example.User;
+
 import java.util.ArrayList;
 import java.util.List;
 

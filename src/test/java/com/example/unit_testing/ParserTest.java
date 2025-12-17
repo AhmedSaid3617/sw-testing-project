@@ -1,8 +1,14 @@
-package com.example;
+package com.example.unit_testing;
 
 import static org.junit.jupiter.api.Assertions.*;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+
+import com.example.Movie;
+import com.example.ParseResult;
+import com.example.Parser;
+import com.example.User;
+
 import org.junit.jupiter.api.DisplayName;
 import java.io.File;
 import java.io.FileWriter;
