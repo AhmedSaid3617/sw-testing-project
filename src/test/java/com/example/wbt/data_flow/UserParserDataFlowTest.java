@@ -74,6 +74,23 @@ public class UserParserDataFlowTest {
     }
 
     @Test
+    void parseUsers_twoUsers_twoIterations_coversIReDefAndSecondIterationLikedMovies() throws Exception {
+        // DU-path: def(i=0) -> iteration 1 -> redef(i=2) -> iteration 2 -> redef(i=4) -> exit.
+        // Also covers the i+1 < length boundary twice.
+        UserParser parser = new UserParser();
+
+        String data = "Alice,123456789\n" +
+                      "M001,M002\n" +
+                      "Bob,987654321\n" +
+                      "M003\n";
+
+        List<User> users = parser.parseUsers(data);
+        assertEquals(2, users.size());
+        assertEquals(List.of("M001", "M002"), users.get(0).getLikedMovies());
+        assertEquals(List.of("M003"), users.get(1).getLikedMovies());
+    }
+
+    @Test
     void parseUsers_partsLengthEquals2_success() throws Exception {
         // DU-path: def(parts) -> P-use(parts.length != 2) false -> continue processing.
         UserParser parser = new UserParser();

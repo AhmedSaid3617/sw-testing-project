@@ -24,6 +24,23 @@ import com.example.User;
 public class RecommenderDataFlowTest {
 
     @Test
+    void recommendMovies_emptyLikedMoviesIds_zeroIterationsInFirstLoops_returnsEmpty() throws Exception {
+        // DU-path: def(likedMoviesIDs) empty -> likedMovies loop 0 iters -> likedGenres loop 0 iters ->
+        // recommendation loop executes but inner likedGenres.contains always false -> no adds.
+        DataStore store = new DataStore();
+
+        store.addMovie(new Movie("The Matrix", "TM001", List.of("Action")));
+        store.addMovie(new Movie("Speed", "S002", List.of("Action")));
+
+        User user = new User("Mohsen", "123456789", new ArrayList<>());
+
+        Recommender recommender = new Recommender(store);
+        List<Movie> recs = recommender.recommendMovies(user);
+
+        assertEquals(0, recs.size());
+    }
+
+    @Test
     void recommendMovies_exercises_skipLiked_continue_and_recommend_break() throws Exception {
         // Exercises both: skip liked (continue) and recommend on genre match (add + break).
         DataStore store = new DataStore();
