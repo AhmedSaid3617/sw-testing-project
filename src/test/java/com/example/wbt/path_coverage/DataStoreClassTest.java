@@ -25,10 +25,11 @@ import java.util.List;
 
 //addUser path coverage test: 
 
+
 // START
-// IF checkIntegrity(user) is true
-//   |----YES----> Add user to users list ---> END
-//   |----NO----> THROW DataIntegrityException ---> END
+// checkIntegrity(user)
+//   |----RETURNS true----> Add user to users list ---> END
+//   |----THROWS exception----> DataIntegrityException ---> END
 
 
 //checkIntegrity path coverage test:
@@ -95,7 +96,7 @@ public class DataStoreClassTest {
 
     // ===================== addUser =====================
 
-    // PATH 7: add valid user
+    // PATH 4: add valid user
     @Test
     void addUserValid() throws Exception {
         DataStore store = new DataStore();
@@ -106,7 +107,7 @@ public class DataStoreClassTest {
         assertEquals(1, store.getUsers().size());
     }
 
-    // PATH 8: addUser fails integrity
+    // PATH 5: addUser fails integrity
     @Test
     void addUserInvalid() throws Exception {
         DataStore store = new DataStore();
@@ -115,9 +116,22 @@ public class DataStoreClassTest {
             () -> store.addUser(u));
     }
 
+    // Path 6 : duplicate user id 
+    @Test
+    void addUserDuplicateId() throws Exception {
+        DataStore store = new DataStore();
+        store.addMovie(new Movie("Matrix", "M001", List.of("Action")));
+
+        User u1 = new User("Alice", "123456789", List.of("M001"));
+        User u2 = new User("Bob", "123456789", List.of("M001"));
+
+        store.addUser(u1);
+        assertThrows(DataIntegrityException.class, () -> store.addUser(u2));
+    }
+
     // ===================== getMovieById =====================
 
-    // PATH 9: movie exists
+    // PATH 7: movie exists
     @Test
     void getMovieByIdExists() throws Exception {
         DataStore store = new DataStore();
@@ -126,11 +140,13 @@ public class DataStoreClassTest {
         assertNotNull(store.getMovieById("M001"));
     }
 
-    // PATH 10: movie does not exist
+    // PATH 8: movie does not exist
     @Test
     void getMovieByIdNotFound() {
         DataStore store = new DataStore();
         assertNull(store.getMovieById("X999"));
     }
+
+
 }
             

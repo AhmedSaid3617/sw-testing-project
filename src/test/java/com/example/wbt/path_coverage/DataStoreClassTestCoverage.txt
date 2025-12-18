@@ -1,0 +1,69 @@
+==================== WHITE BOX TESTING COVERAGE CHECK ====================
+
+Class Under Test: DataStore
+Testing Technique: White Box Testing – Statement , Branch , Condition Coverage
+
+---------------------------------------------------------
+1. addMovie(Movie movie)
+---------------------------------------------------------
+Covered Paths:
+- Loop executes 0 times (first movie added) -> Test Case 1
+- Loop executes with multiple movies -> Test Case 2 
+- Duplicate numeric ID detected -> Test Case 3 
+
+Coverage Achieved:
+- Statement Coverage: 100% 
+- Branch Coverage: 100%
+- Condition Coverage: 100%
+
+---------------------------------------------------------
+2. addUser(User user)
+---------------------------------------------------------
+Covered Paths:
+- Valid user integrity ( user added ) -> Test Case 4 
+- Invalid integrity (missing liked movie) -> Test Case 5
+- Invalid integrity (duplicate user ID) -> Test Case 6
+
+Note:
+- checkIntegrity() never returns false; it either returns true or throws.
+- Therefore we check with assert equal and assert throws in case of true or 
+exception thrown.
+
+Coverage Achieved:
+- Statement Coverage: 100%
+- Branch Coverage: 100%
+- Condition Coverage: (not applicable since we don't have normal true & false)
+
+---------------------------------------------------------
+3. checkIntegrity(User user) (PRIVATE – thus tested indirectly)
+---------------------------------------------------------
+Covered Paths:
+- Liked movie exists 
+- Liked movie does not exist
+- Duplicate user ID
+- All checks pass 
+
+Coverage Achieved:
+- Statement Coverage: 100%
+- Branch Coverage: 100%
+- Condition Coverage: 100%
+
+---------------------------------------------------------
+4. getMovieById(String id)
+---------------------------------------------------------
+Covered Paths:
+- Movie found (return movie) -> Test Case 7
+- Movie not found -> Test Case 8
+
+Coverage Achieved:
+- Statement Coverage: 100%
+- Branch Coverage: 100%
+- Condition Coverage: 100%
+
+---------------------------------------------------------
+OVERALL RESULT:
+- Statement, Branch, and Condition coverage all finished
+- All logical execution paths in DataStore are tested
+
+=========================================================
+
