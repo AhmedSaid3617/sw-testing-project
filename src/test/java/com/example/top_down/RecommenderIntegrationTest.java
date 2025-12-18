@@ -1,4 +1,4 @@
-package com.example;
+package com.example.top_down;
 
 import java.util.List;
 
@@ -6,6 +6,14 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import org.junit.jupiter.api.Test;
+
+import com.example.DataStore;
+import com.example.Movie;
+import com.example.MovieException;
+import com.example.Recommender;
+import com.example.User;
+import com.example.UserException;
+
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;

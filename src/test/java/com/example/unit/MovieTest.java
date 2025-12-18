@@ -1,4 +1,4 @@
-package com.example.unit_testing;
+package com.example.unit;
 import java.util.Arrays;
 import org.junit.jupiter.api.Test;
 

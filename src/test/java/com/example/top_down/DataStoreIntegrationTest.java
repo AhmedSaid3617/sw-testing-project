@@ -1,4 +1,4 @@
-package com.example;
+package com.example.top_down;
 
 
 import java.util.List;
@@ -6,6 +6,12 @@ import java.util.List;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 import org.junit.jupiter.api.Test;
+
+import com.example.DataIntegrityException;
+import com.example.DataStore;
+import com.example.Movie;
+import com.example.ParseResult;
+import com.example.User;
 
 class DataStoreIntegrationTest {
 

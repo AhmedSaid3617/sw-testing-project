@@ -1,10 +1,20 @@
-package com.example;
+package com.example.top_down;
 
 import java.util.List;
 
 import org.junit.jupiter.api.Test;
 import static org.mockito.ArgumentMatchers.anyString;
 import org.mockito.Mockito;
+
+import com.example.DataStore;
+import com.example.Main;
+import com.example.Movie;
+import com.example.ParseResult;
+import com.example.Parser;
+import com.example.RecommendationWriter;
+import com.example.Recommender;
+import com.example.User;
+
 import static org.mockito.Mockito.doReturn;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.verify;
