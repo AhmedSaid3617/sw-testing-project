@@ -1,8 +1,13 @@
-package com.example;
+package com.example.unit;
 
 import static org.junit.jupiter.api.Assertions.*;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+
+import com.example.User;
+import com.example.UserException;
+import com.example.UserParser;
+
 import org.junit.jupiter.api.DisplayName;
 import java.util.List;
 

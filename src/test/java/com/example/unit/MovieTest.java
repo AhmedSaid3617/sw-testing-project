@@ -1,6 +1,10 @@
-package com.example;
+package com.example.unit;
 import java.util.Arrays;
 import org.junit.jupiter.api.Test;
+
+import com.example.Movie;
+import com.example.MovieException;
+
 import org.junit.jupiter.api.DisplayName;
 import static org.junit.jupiter.api.Assertions.*;
 import java.util.List;

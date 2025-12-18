@@ -1,8 +1,16 @@
-package com.example;
+package com.example.unit;
 
 import static org.junit.jupiter.api.Assertions.*;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+
+import com.example.DataIntegrityException;
+import com.example.DataStore;
+import com.example.Movie;
+import com.example.ParseResult;
+import com.example.User;
+import com.example.UserException;
+
 import org.junit.jupiter.api.DisplayName;
 import java.util.ArrayList;
 import java.util.Arrays;
