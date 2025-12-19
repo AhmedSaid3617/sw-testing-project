@@ -1,9 +1,29 @@
 package com.example;
-
 import java.util.List;
 
+
 public class Main {
-    public static void main(String[] args) {
+
+    public static void main(String[] args) throws Exception {
+         
+        // Temporary file paths
+        String usersFile = "users.txt";
+        String moviesFile = "movies.txt";
+
+        // File content
+        String moviesData = 
+            "Matrix,M001\nAction\n" +
+            "Inception,I002\nAction\n" +
+            "Avatar,A003\nAction\n";
+
+        String usersData = 
+            "Alice,123456789\nM001,I002\n" +
+            "Bob,987654321\nM001,A003\n";
+
+        // Create files
+        CreateFiles.createFile(moviesFile, moviesData);
+        CreateFiles.createFile(usersFile, usersData);
+
         System.out.println("Welcome to the Movie Recommender System!");
         new Main().run(
                 "users.txt",
